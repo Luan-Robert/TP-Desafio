@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Desafio">
         <activity
+            android:name=".view.ListaDesafiosActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.MainActivity"
             android:exported="true">
             <intent-filter>
