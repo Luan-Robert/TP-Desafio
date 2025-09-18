@@ -11,4 +11,9 @@ class DesafioDaoImpl: DesafioDao {
     override fun obterDesafios(): List<Desafio> {
         return desafios
     }
+
+    override fun excluir(desafio: Desafio)
+    {
+        desafios.remove(desafio)
+    }
 }
