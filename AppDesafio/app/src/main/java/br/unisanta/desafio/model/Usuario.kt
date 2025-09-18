@@ -1,4 +1,4 @@
-package br.unisanta.ui.model
+package br.unisanta.desafio.model
 
 data class Usuario(
     val nome: String = "",

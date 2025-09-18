@@ -11,7 +11,7 @@ import br.unisanta.desafio.R
 import br.unisanta.desafio.model.Desafio
 import com.bumptech.glide.Glide
 
-class DesafioAdapter(private val desafios: List<Desafio>) :
+class DesafioAdapter(private val desafios: MutableList<Desafio>, private val onExcluirClick: (Desafio) -> Unit) :
     RecyclerView.Adapter<DesafioAdapter.DesafioViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DesafioViewHolder {
@@ -30,22 +30,23 @@ class DesafioAdapter(private val desafios: List<Desafio>) :
         return desafios.size
     }
 
-    fun remover (desafio:Desafio)
-    {
+    fun remover(desafio: Desafio) {
         val index = desafios.indexOf(desafio)
-        if (index != -1)
-        {
+        if (index != -1) {
             desafios.removeAt(index)
             notifyItemRemoved(index)
         }
     }
-    class DesafioViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class DesafioViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val textViewNome: TextView = itemView.findViewById(R.id.txv_nome)
         private val textViewValor: TextView = itemView.findViewById(R.id.txv_valor)
         private val imageViewURL: ImageView = itemView.findViewById(R.id.img_url)
         private val btnExcluir: Button = itemView.findViewById(R.id.btn_excluir)
 
         fun bind(desafio: Desafio) {
+            btnExcluir.setOnClickListener {
+                onExcluirClick(desafio)
+            }
             textViewNome.text = desafio.nome
             textViewValor.text = desafio.valor
             val url = desafio.url
@@ -59,11 +60,6 @@ class DesafioAdapter(private val desafios: List<Desafio>) :
             {
                 imageViewURL.setImageResource(R.drawable.bottom_shape)
             }
-
-            btnExcluir.setOnClickListener {
-                onExcluirClick(desafio)
-            }
-
 
         }
     }

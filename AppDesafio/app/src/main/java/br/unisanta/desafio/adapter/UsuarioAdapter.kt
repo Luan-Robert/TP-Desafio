@@ -1,4 +1,4 @@
-package br.unisanta.ui.adapter
+package br.unisanta.desafio.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,8 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.unisanta.desafio.R
-import br.unisanta.ui.R
-import br.unisanta.ui.model.Usuario
+import br.unisanta.desafio.model.Usuario // This is the definitive, correct import!
 
 class UsuarioAdapter(private val usuarios: List<Usuario>) :
     RecyclerView.Adapter<UsuarioAdapter.UsuarioViewHolder>() {

@@ -1,6 +1,7 @@
 package br.unisanta.desafio.view
 
 import android.content.Intent
+
 import android.os.Bundle
 import android.widget.Button
 import android.widget.CheckBox
@@ -32,7 +33,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         val btnCadastrar = findViewById<Button>(R.id.btn_cadastrar)
         val btnLista = findViewById<Button>(R.id.btn_lista)
 
-
         btnCadastrar.setOnClickListener{
             val nome = edtNome.text.toString()
             val valor = edtValor.text.toString()
@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         }
 
         btnLista.setOnClickListener{
-            val intent = Intent (this, ListaDesafiosActivity::class.java)
+            val intent = Intent(this, DesafiosListActivity::class.java)
             startActivity(intent)
         }
     }

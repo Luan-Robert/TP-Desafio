@@ -1,4 +1,4 @@
-package br.unisanta.ui.view
+package br.unisanta.desafio.view
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,11 +12,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import br.unisanta.desafio.R
-import br.unisanta.desafio.view.ListaDesafiosActivity
-import br.unisanta.ui.model.Usuario
-import br.unisanta.ui.model.UsuarioDaoImpl
+import br.unisanta.desafio.model.Usuario
+import br.unisanta.desafio.model.UsuarioDaoImpl
 
-class MainActivity : AppCompatActivity(R.layout.activity_main) {
+import br.unisanta.desafio.view.MainActivity
+
+class LoginActivity : AppCompatActivity(R.layout.activity_login) {
 
     private val usuarioDao = UsuarioDaoImpl()
 
@@ -43,7 +44,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             val senha = editTextSenha.text.toString().trim()
 
             if (email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                // Alteração 1: Substituindo editTextEmail.error por AlertDialog para email inválido no cadastro
                 AlertDialog.Builder(this)
                     .setTitle(getString(R.string.error_title))
                     .setMessage(getString(R.string.invalid_email))
@@ -54,7 +54,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                 return@setOnClickListener
             }
             if (senha.isEmpty()) {
-                // Alteração 2: altreção feita ok alert
                 AlertDialog.Builder(this)
                     .setTitle(getString(R.string.error_title))
                     .setMessage(getString(R.string.password_required))
@@ -67,9 +66,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
             val novoUsuario = Usuario("", email, senha)
             if (usuarioDao.adicionarUsuario(novoUsuario)) {
-                // Alerta de Sucesso no Cadastro  altreção feita ok alert
                 AlertDialog.Builder(this)
-                    .setTitle(getString(R.string.register_success_title)) // Título de sucesso
+                    .setTitle(getString(R.string.register_success_title))
                     .setMessage(getString(R.string.register_success))
                     .setPositiveButton(getString(R.string.ok)) { dialog, _ ->
                         dialog.dismiss()
@@ -79,9 +77,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                     .create()
                     .show()
             } else {
-                //  altreção feita ok alert
                 AlertDialog.Builder(this)
-                    .setTitle(getString(R.string.error_title)) // Título de erro
+                    .setTitle(getString(R.string.error_title))
                     .setMessage(getString(R.string.email_already_exists))
                     .setPositiveButton(getString(R.string.ok)) { dialog, _ -> dialog.dismiss() }
                     .create()
@@ -96,7 +93,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
             // Validação
             if (email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                // Alteração 3:  altreção feita ok alert
                 AlertDialog.Builder(this)
                     .setTitle(getString(R.string.error_title))
                     .setMessage(getString(R.string.invalid_email))
@@ -107,7 +103,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                 return@setOnClickListener
             }
             if (senha.isEmpty()) {
-                // Alteração 4:  altreção feita ok alert
                 AlertDialog.Builder(this)
                     .setTitle(getString(R.string.error_title))
                     .setMessage(getString(R.string.password_required))
@@ -120,21 +115,20 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
             // Lógica de login
             if (usuarioDao.autenticarUsuario(email, senha)) {
-                // Alerta de Sucesso no Login  altreção feita ok alert
                 AlertDialog.Builder(this)
-                    .setTitle(getString(R.string.login_success_title)) // Título de sucesso
+                    .setTitle(getString(R.string.login_success_title))
                     .setMessage(getString(R.string.login_success))
                     .setPositiveButton(getString(R.string.ok)) { dialog, _ ->
                         dialog.dismiss()
-                        val intent = Intent(this, ListaDesafiosActivity::class.java)
+                        val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)
+                        finish() // Adicionado para fechar a LoginActivity
                     }
                     .create()
                     .show()
             } else {
-                // Alerta de Erro no Login  altreção feita ok alert
                 AlertDialog.Builder(this)
-                    .setTitle(getString(R.string.error_title)) // Título de erro
+                    .setTitle(getString(R.string.error_title))
                     .setMessage(getString(R.string.login_failed))
                     .setPositiveButton(getString(R.string.ok)) { dialog, _ -> dialog.dismiss() }
                     .create()
@@ -142,7 +136,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             }
         }
 
-        // 4. Listener para "Esqueceu a senha?" base
+        // 4. Listener para "Esqueceu a senha?"
         textViewEsqueceuSenha.setOnClickListener {
             AlertDialog.Builder(this)
                 .setTitle(getString(R.string.forgot_password_title))
@@ -153,4 +147,3 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         }
     }
 }
-

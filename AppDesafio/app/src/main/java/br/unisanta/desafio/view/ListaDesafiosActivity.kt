@@ -30,18 +30,15 @@ class ListaDesafiosActivity : AppCompatActivity(R.layout.activity_lista_desafios
         dao = DesafioDaoImpl()
         val listaDesafios = dao.obterDesafios()
 
-        adapter = DesafioAdapter(listaDesafios) { desafio ->
+        val rvDesafios = findViewById<RecyclerView>(R.id.rv_desafios)
+        val listaDeDesafios = dao.obterDesafios().toMutableList()
+
+        adapter = DesafioAdapter(listaDeDesafios) { desafio ->
             dao.excluir(desafio)
             adapter.remover(desafio)
         }
 
-
-        val rvDesafios = findViewById<RecyclerView>(R.id.rv_desafios)
-        val listaDeDesafios = dao.obterDesafios()
-
         rvDesafios.layoutManager = LinearLayoutManager(this)
-
-        val adapter = DesafioAdapter(listaDeDesafios)
         rvDesafios.adapter = adapter
     }
 }
