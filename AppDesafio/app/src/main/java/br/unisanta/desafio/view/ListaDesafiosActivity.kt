@@ -1,7 +1,6 @@
 package br.unisanta.desafio.view
 
 import android.os.Bundle
-import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -15,9 +14,8 @@ import br.unisanta.desafio.model.DesafioDaoImpl
 
 class ListaDesafiosActivity : AppCompatActivity(R.layout.activity_lista_desafios) {
 
-    private lateinit var adapter:DesafioAdapter
+    private lateinit var adapter: DesafioAdapter
     private lateinit var dao: DesafioDao
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,15 +25,15 @@ class ListaDesafiosActivity : AppCompatActivity(R.layout.activity_lista_desafios
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        dao = DesafioDaoImpl()
-        val listaDesafios = dao.obterDesafios()
 
-        val rvDesafios = findViewById<RecyclerView>(R.id.rv_desafios)
+        dao = DesafioDaoImpl()
         val listaDeDesafios = dao.obterDesafios().toMutableList()
 
-        adapter = DesafioAdapter(listaDeDesafios) { desafio ->
+        val rvDesafios = findViewById<RecyclerView>(R.id.rv_desafios)
+
+        adapter = DesafioAdapter(listaDeDesafios) { desafio, position ->
             dao.excluir(desafio)
-            adapter.remover(desafio)
+            adapter.removerItem(position)
         }
 
         rvDesafios.layoutManager = LinearLayoutManager(this)
