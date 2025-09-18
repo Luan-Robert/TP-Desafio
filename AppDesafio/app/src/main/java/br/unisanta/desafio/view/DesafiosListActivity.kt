@@ -29,8 +29,7 @@ class DesafiosListActivity : AppCompatActivity(R.layout.activity_desafios_list) 
         val listaDeDesafios = desafioDao.obterDesafios().toMutableList()
 
         adapter = DesafioAdapter(listaDeDesafios) { desafio, position ->
-            // A lógica de exclusão foi movida para o adapter, mas aqui você pode
-            // colocar qualquer lógica de clique que precise dos dois parâmetros.
+
             desafioDao.excluir(desafio)
             adapter.removerItem(position)
         }
